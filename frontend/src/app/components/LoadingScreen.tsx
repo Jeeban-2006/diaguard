@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import React from 'react';
->>>>>>> a3a9ef4 (Still working)
 import { motion } from 'motion/react';
 import { Heart } from 'lucide-react';
 

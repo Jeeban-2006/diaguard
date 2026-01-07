@@ -1,32 +1,18 @@
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-=======
 import React, { useState, useEffect } from 'react';
->>>>>>> a3a9ef4 (Still working)
 import { ThreeScene } from './components/ThreeScene';
 import { UIOverlay } from './components/UIOverlay';
 import { LoadingScreen } from './components/LoadingScreen';
 import { HealthInputForm } from './components/HealthInputForm';
 import { Dashboard } from './components/Dashboard';
-<<<<<<< HEAD
-import { AnimatePresence } from 'motion/react';
-=======
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { AnimatePresence } from 'motion/react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
->>>>>>> a3a9ef4 (Still working)
 
 export default function App() {
   const [currentZone, setCurrentZone] = useState<string | null>('hero');
   const [isLoading, setIsLoading] = useState(true);
   const [showHealthForm, setShowHealthForm] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
-<<<<<<< HEAD
-=======
   const [showHowItWorks, setShowHowItWorks] = useState(false);
->>>>>>> a3a9ef4 (Still working)
   const [healthData, setHealthData] = useState<any>(null);
   const [riskScore, setRiskScore] = useState(0);
   const [riskStage, setRiskStage] = useState<'Normal' | 'Pre-diabetic' | 'High Risk'>('Normal');
@@ -136,9 +122,6 @@ export default function App() {
           <ThreeScene currentZone={currentZone} onZoneChange={handleZoneChange} />
           
           {/* 2D UI Overlay */}
-<<<<<<< HEAD
-          <UIOverlay currentZone={currentZone} onNavigate={handleNavigate} onOpenForm={handleOpenForm} />
-=======
           <UIOverlay 
             currentZone={currentZone} 
             onNavigate={handleNavigate} 
@@ -151,7 +134,6 @@ export default function App() {
             open={showHowItWorks} 
             onOpenChange={setShowHowItWorks}
           />
->>>>>>> a3a9ef4 (Still working)
 
           {/* Dashboard */}
           <AnimatePresence>

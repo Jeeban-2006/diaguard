@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useEffect, useRef } from 'react';
-=======
 import React, { useEffect, useRef } from 'react';
->>>>>>> a3a9ef4 (Still working)
 import * as THREE from 'three';
 
 export function FormBackground3D() {

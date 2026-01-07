@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import React from 'react';
->>>>>>> a3a9ef4 (Still working)
 import { motion } from 'motion/react';
 import { 
   X, 
@@ -16,12 +13,8 @@ import {
   CheckCircle,
   Info,
   Download,
-<<<<<<< HEAD
-  Calendar
-=======
   Calendar,
   LucideIcon
->>>>>>> a3a9ef4 (Still working)
 } from 'lucide-react';
 import { 
   LineChart, 
@@ -123,9 +116,6 @@ export function Dashboard({ onClose, healthData, riskScore, riskStage }: Dashboa
   ].sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
 
   // Generate personalized recommendations
-<<<<<<< HEAD
-  const recommendations = [];
-=======
   interface Recommendation {
     icon: LucideIcon;
     title: string;
@@ -133,7 +123,6 @@ export function Dashboard({ onClose, healthData, riskScore, riskStage }: Dashboa
     priority: 'high' | 'medium' | 'low';
   }
   const recommendations: Recommendation[] = [];
->>>>>>> a3a9ef4 (Still working)
   if (healthData.fastingGlucose > 100) {
     recommendations.push({
       icon: Utensils,

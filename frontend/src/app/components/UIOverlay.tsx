@@ -1,26 +1,13 @@
-<<<<<<< HEAD
-import { Activity, Brain, Heart, MapPin, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
-=======
 import React, { useState } from 'react';
 import { Activity, Brain, Heart, MapPin, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import AuthModal from './AuthModal';
 import FeatureCards from './FeatureCards';
->>>>>>> a3a9ef4 (Still working)
 
 interface UIOverlayProps {
   currentZone: string | null;
   onNavigate: (zone: string) => void;
   onOpenForm: () => void;
-<<<<<<< HEAD
-}
-
-export function UIOverlay({ currentZone, onNavigate, onOpenForm }: UIOverlayProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [minimapVisible, setMinimapVisible] = useState(true);
-=======
   onOpenHowItWorks: () => void;
 }
 
@@ -29,7 +16,6 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
   const [minimapVisible, setMinimapVisible] = useState(true);
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
->>>>>>> a3a9ef4 (Still working)
 
   return (
     <>
@@ -53,9 +39,6 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
           <nav className="hidden md:flex items-center gap-6">
             <NavButton label="Hero" zone="hero" currentZone={currentZone} onNavigate={onNavigate} />
             <NavButton label="Features" zone="features" currentZone={currentZone} onNavigate={onNavigate} />
-<<<<<<< HEAD
-            <NavButton label="How It Works" zone="how-it-works" currentZone={currentZone} onNavigate={onNavigate} />
-=======
             <button
               onClick={onOpenHowItWorks}
               className="px-4 py-2 rounded-lg transition-all hover:bg-gray-100 text-gray-700"
@@ -74,7 +57,6 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
             >
               Sign Up
             </button>
->>>>>>> a3a9ef4 (Still working)
             <NavButton label="Get Started" zone="cta" currentZone={currentZone} onNavigate={onNavigate} primary />
           </nav>
 
@@ -98,9 +80,6 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
               <div className="flex flex-col gap-2">
                 <MobileNavButton label="Hero" zone="hero" onNavigate={onNavigate} setMenuOpen={setMenuOpen} />
                 <MobileNavButton label="Features" zone="features" onNavigate={onNavigate} setMenuOpen={setMenuOpen} />
-<<<<<<< HEAD
-                <MobileNavButton label="How It Works" zone="how-it-works" onNavigate={onNavigate} setMenuOpen={setMenuOpen} />
-=======
                 <button
                   onClick={() => {
                     onOpenHowItWorks();
@@ -110,7 +89,6 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
                 >
                   How It Works
                 </button>
->>>>>>> a3a9ef4 (Still working)
                 <MobileNavButton label="Get Started" zone="cta" onNavigate={onNavigate} setMenuOpen={setMenuOpen} primary />
               </div>
             </motion.div>
@@ -121,13 +99,8 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
       {/* Zone Content */}
       <AnimatePresence mode="wait">
         {currentZone === 'hero' && <HeroContent onNavigate={onNavigate} />}
-<<<<<<< HEAD
-        {currentZone?.startsWith('feature-') && <FeatureContent zone={currentZone} />}
-        {currentZone?.startsWith('step-') && <StepContent zone={currentZone} />}
-=======
         {currentZone === 'features' && <FeatureCards />}
         {currentZone?.startsWith('feature-') && <FeatureContent zone={currentZone} />}
->>>>>>> a3a9ef4 (Still working)
         {currentZone === 'cta' && <CTAContent onOpenForm={onOpenForm} />}
       </AnimatePresence>
 
@@ -191,6 +164,17 @@ export function UIOverlay({ currentZone, onNavigate, onOpenForm, onOpenHowItWork
           <MapPin className="w-6 h-6" />
         </motion.button>
       )}
+
+      {/* Auth Modal */}
+      <AuthModal
+        open={authOpen}
+        mode={authMode}
+        onClose={() => setAuthOpen(false)}
+        onSuccess={() => {
+          setAuthOpen(false);
+          console.log('Authentication successful');
+        }}
+      />
     </>
   );
 }
@@ -337,47 +321,6 @@ function FeatureContent({ zone }: { zone: string }) {
   );
 }
 
-<<<<<<< HEAD
-function StepContent({ zone }: { zone: string }) {
-  const steps: Record<string, { title: string; description: string }> = {
-    'step-1': {
-      title: 'Step 1: Input Your Data',
-      description: 'Share your health metrics, lifestyle habits, and medical history through our secure platform.'
-    },
-    'step-2': {
-      title: 'Step 2: AI Analysis',
-      description: 'Our advanced algorithms process your data to identify risk factors and patterns.'
-    },
-    'step-3': {
-      title: 'Step 3: Get Your Results',
-      description: 'Receive a comprehensive risk assessment with actionable recommendations for prevention.'
-    }
-  };
-
-  const step = steps[zone];
-  if (!step) return null;
-
-  return (
-    <motion.div
-      key={zone}
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 50 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none"
-    >
-      <div className="bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl max-w-md pointer-events-auto">
-        <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-          {step.title}
-        </h3>
-        <p className="text-gray-700 text-lg leading-relaxed">{step.description}</p>
-      </div>
-    </motion.div>
-  );
-}
-
-=======
->>>>>>> a3a9ef4 (Still working)
 function CTAContent({ onOpenForm }: { onOpenForm: () => void }) {
   return (
     <motion.div

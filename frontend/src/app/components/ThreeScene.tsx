@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useEffect, useRef, useState } from 'react';
-=======
 import React, { useEffect, useRef, useState } from 'react';
->>>>>>> a3a9ef4 (Still working)
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import gsap from 'gsap';
@@ -250,11 +246,7 @@ function createHeroZone(scene: THREE.Scene, interactiveObjects: Map<THREE.Object
 
 function createFeaturesZone(scene: THREE.Scene, interactiveObjects: Map<THREE.Object3D, string>) {
   // Three feature pillars
-<<<<<<< HEAD
-  const features = [
-=======
   const features: Array<{ name: string; position: [number, number, number]; color: number }> = [
->>>>>>> a3a9ef4 (Still working)
     { name: 'Risk Prediction', position: [-8, 2, -5], color: 0x42a5f5 },
     { name: 'Lifestyle Recommendations', position: [0, 2, -8], color: 0x66bb6a },
     { name: 'Explainable AI', position: [8, 2, -5], color: 0xab47bc }
@@ -319,11 +311,7 @@ function createFeaturesZone(scene: THREE.Scene, interactiveObjects: Map<THREE.Ob
 
 function createHowItWorksZone(scene: THREE.Scene, interactiveObjects: Map<THREE.Object3D, string>) {
   // Three steps as connected pathway
-<<<<<<< HEAD
-  const steps = [
-=======
   const steps: Array<{ position: [number, number, number]; color: number }> = [
->>>>>>> a3a9ef4 (Still working)
     { position: [-10, 1, 5], color: 0x4fc3f7 },
     { position: [-3, 1, 8], color: 0x66bb6a },
     { position: [4, 1, 5], color: 0xffa726 }
@@ -424,11 +412,7 @@ function createCTAZone(scene: THREE.Scene, interactiveObjects: Map<THREE.Object3
 
 function createPortals(scene: THREE.Scene, interactiveObjects: Map<THREE.Object3D, string>) {
   // Navigation portals
-<<<<<<< HEAD
-  const portalPositions = [
-=======
   const portalPositions: Array<{ pos: [number, number, number]; target: string }> = [
->>>>>>> a3a9ef4 (Still working)
     { pos: [-15, 1, 0], target: 'features' },
     { pos: [15, 1, 0], target: 'how-it-works' },
     { pos: [0, 1, -15], target: 'hero' }

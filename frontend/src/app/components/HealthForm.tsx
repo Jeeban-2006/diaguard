@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-=======
 import React, { useState } from 'react';
->>>>>>> a3a9ef4 (Still working)
 import { motion, AnimatePresence } from 'motion/react';
 import { useForm } from 'react-hook-form';
 import { 
@@ -19,13 +15,9 @@ import {
   Scale,
   Calendar
 } from 'lucide-react';
-<<<<<<< HEAD
-=======
 import { explainRisk } from "../../api";
 
 
-
->>>>>>> a3a9ef4 (Still working)
 
 interface HealthFormData {
   age: number;
@@ -48,13 +40,10 @@ export function HealthForm({ onClose, onSubmit }: HealthFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<HealthFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-<<<<<<< HEAD
-=======
   const { register, handleSubmit, formState: { errors }, watch, trigger } = useForm<HealthFormData>({
     mode: 'onBlur',
     defaultValues: formData
   });
->>>>>>> a3a9ef4 (Still working)
 
   const steps = [
     { title: 'Basic Info', icon: User, fields: ['age', 'gender'] },
@@ -63,21 +52,7 @@ export function HealthForm({ onClose, onSubmit }: HealthFormProps) {
     { title: 'Lifestyle', icon: Activity, fields: ['physicalActivity', 'sleepHours', 'stressLevel'] }
   ];
 
-<<<<<<< HEAD
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    trigger,
-    watch
-  } = useForm<HealthFormData>({
-    defaultValues: formData,
-    mode: 'onChange'
-  });
-=======
->>>>>>> a3a9ef4 (Still working)
-
-  const progress = ((currentStep + 1) / steps.length) * 100;
+const progress = ((currentStep + 1) / steps.length) * 100;
 
   const handleNext = async () => {
     const fieldsToValidate = steps[currentStep].fields as Array<keyof HealthFormData>;
@@ -100,18 +75,8 @@ export function HealthForm({ onClose, onSubmit }: HealthFormProps) {
   };
 
   const onFormSubmit = async (data: HealthFormData) => {
-<<<<<<< HEAD
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    onSubmit(data);
-    setIsSubmitting(false);
-  };
-=======
-  try {
-    setIsSubmitting(true);
+    try {
+      setIsSubmitting(true);
 
     console.log("Sending to backend:", data);
 
@@ -139,14 +104,6 @@ export function HealthForm({ onClose, onSubmit }: HealthFormProps) {
     setIsSubmitting(false);
   }
 };
-
-
-  
-
-
-  
-
->>>>>>> a3a9ef4 (Still working)
 
   return (
     <motion.div
