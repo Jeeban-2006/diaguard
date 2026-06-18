@@ -1,4 +1,5 @@
-import { supabase } from '../lib/supabase';
+import { supabase } from '@/lib/supabase';
+import type { Profile } from '@/lib/supabase';
 
 export interface AuthError {
   message: string;
@@ -8,6 +9,38 @@ export interface AuthError {
 export interface AuthResult {
   success: boolean;
   error?: AuthError;
+}
+
+export async function getCurrentUser() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
+}
+
+export async function getProfile(userId: string): Promise<Profile | null> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+  if (error || !data) return null;
+  return data as Profile;
+}
+
+export interface UpdateProfileInput {
+  full_name?: string | null;
+}
+
+export async function updateProfile(userId: string, input: UpdateProfileInput): Promise<AuthResult> {
+  try {
+    const { error } = await supabase
+      .from('profiles')
+      .update(input)
+      .eq('id', userId);
+    if (error) return { success: false, error: { message: error.message } };
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: { message: 'Failed to update profile' } };
+  }
 }
 
 /**
@@ -104,6 +137,46 @@ export async function signOut(): Promise<AuthResult> {
     return {
       success: false,
       error: { message: 'An unexpected error occurred during logout' },
+    };
+  }
+}
+
+/**
+ * Request password reset email
+ */
+export async function resetPassword(email: string): Promise<AuthResult> {
+  try {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin,
+    });
+
+    if (error) {
+      return { success: false, error: { message: error.message } };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: { message: 'An unexpected error occurred while requesting password reset' },
+    };
+  }
+}
+
+/**
+ * Update user password (used during recovery flow)
+ */
+export async function updatePassword(password: string): Promise<AuthResult> {
+  try {
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) {
+      return { success: false, error: { message: error.message } };
+    }
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: { message: 'An unexpected error occurred while updating password' },
     };
   }
 }

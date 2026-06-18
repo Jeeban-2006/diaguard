@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import AuthModal from '../components/AuthModal';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
   const navigate = useNavigate();

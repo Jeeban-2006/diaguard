@@ -1,84 +1,28 @@
 # DiaguARd Backend
 
-Express.js backend API for DiaguARd health monitoring system.
+Backend services for DiaguARd: Django (main API) and Node/Express (optional API).
 
-## Tech Stack
-
-- **Node.js** - Runtime environment
-- **Express** - Web framework
-- **CORS** - Cross-origin resource sharing
-- **dotenv** - Environment variable management
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or pnpm
-
-### Installation
-
-```bash
-# Install dependencies
-npm install
-# or
-pnpm install
-```
-
-### Development
-
-```bash
-# Start development server with auto-reload
-npm run dev
-# or
-pnpm dev
-```
-
-The server will be available at `http://localhost:3000`
-
-### Production
-
-```bash
-# Start production server
-npm start
-# or
-pnpm start
-```
-
-## Project Structure
+## Structure
 
 ```
-src/
-├── index.js                    # Main application entry point
-├── routes/                     # API routes (to be added)
-├── controllers/                # Request handlers (to be added)
-├── models/                     # Data models (to be added)
-├── middleware/                 # Custom middleware (to be added)
-└── utils/                      # Utility functions (to be added)
+backend/
+├── django/          # Django REST API (port 8000)
+│   ├── manage.py
+│   ├── api/          # API app
+│   └── diaguard_backend/  # Django config
+└── node/             # Express API (port 3000)
+    ├── index.js
+    ├── package.json
+    └── .env.example
 ```
 
-## API Endpoints
+## Django (main API)
 
-### Health Check
-- **GET** `/api/health` - Check server status
+- Python 3, Django, Django REST Framework
+- Run: `cd backend/django && python manage.py runserver`
+- API: `http://127.0.0.1:8000/api/`
 
-### Health Data
-- **POST** `/api/health-data` - Submit health data
+## Node (Express)
 
-## Environment Variables
-
-Create a `.env` file in the backend directory:
-
-```env
-PORT=3000
-NODE_ENV=development
-```
-
-## Future Enhancements
-
-- Database integration (MongoDB/PostgreSQL)
-- Authentication & Authorization
-- Data validation
-- Logging system
-- Health data processing algorithms
-- WebSocket support for real-time updates
+- Run: `cd backend/node && npm install && npm run dev`
+- API: `http://localhost:3000`

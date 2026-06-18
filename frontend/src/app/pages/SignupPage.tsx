@@ -1,24 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
+import AuthModal from '../components/AuthModal';
+import { supabase } from '@/lib/supabase';
 
 export default function SignupPage() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    // Check for existing session
+    checkSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        navigate('/dashboard');
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
+
+  const checkSession = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        navigate('/dashboard');
+      } else {
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error('Session check error:', error);
+      setShowModal(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAuthSuccess = () => {
+    navigate('/dashboard');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="signup-page">
-      <h1>Sign Up</h1>
-      <form>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <AuthModal
+        open={showModal}
+        mode="signup"
+        onClose={() => navigate('/')}
+        onSuccess={handleAuthSuccess}
+      />
     </div>
   );
 }

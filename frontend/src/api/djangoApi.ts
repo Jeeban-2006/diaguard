@@ -1,18 +1,30 @@
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const API_BASE_URL = "http://127.0.0.1:8000/api";
 
 export async function explainRisk(data: any) {
-  // Your implementation here
-  const response = await fetch('your-backend-url', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+  const payload = {
+    age: data.age,
+    bmi: data.bmi,
+    fastingGlucose: data.fastingGlucose,
+    systolicBP: data.systolicBP,
+    diastolicBP: data.diastolicBP,
+    physicalActivity: data.physicalActivity,
+    sleepHours: data.sleepHours,
+    stressLevel: data.stressLevel,
+    familyHistory: data.familyHistory ?? false,
+    smokingStatus: data.smokingStatus ?? 'never',
+  };
+
+  const response = await fetch(`${API_BASE_URL}/explain-risk/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
   });
+
+  if (!response.ok) {
+    throw new Error(`Django API request failed with status ${response.status}`);
+  }
+
   return response.json();
 }

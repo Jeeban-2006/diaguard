@@ -3,7 +3,9 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "jsx": "react-jsx"
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src/**/*", "src/**/*.tsx", "src/vite-env.d.ts"]
 }

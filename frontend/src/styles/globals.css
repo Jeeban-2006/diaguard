@@ -1,0 +1,221 @@
+/* ============================================================
+   DiaGuard AI — Scoped Design System
+   All rules are scoped to .diaguard to prevent bleeding into
+   the rest of the app. @keyframes and font imports are global
+   (harmless). CSS variables are scoped to .diaguard too.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+/* ── @keyframes (global — safe, no side-effects) ────────────── */
+@keyframes dg-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes dg-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
+}
+
+@keyframes dg-orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-20px, 25px) scale(0.97); }
+}
+
+@keyframes dg-scroll-line {
+  0%   { opacity: 1; transform: scaleY(0); transform-origin: top; }
+  50%  { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ── All DiaGuard styles scoped to .diaguard ────────────────── */
+.diaguard {
+  /* ── Design Tokens ──────────────────────────────────────── */
+  --dg-primary:          #16a34a;
+  --dg-primary-light:    #4ade80;
+  --dg-primary-glow:     rgba(22, 163, 74, 0.25);
+  --dg-primary-glow-sm:  rgba(22, 163, 74, 0.12);
+
+  --dg-bg-base:          #080c10;
+  --dg-bg-card:          rgba(255, 255, 255, 0.04);
+  --dg-bg-card-hover:    rgba(255, 255, 255, 0.07);
+
+  --dg-border:           rgba(255, 255, 255, 0.08);
+  --dg-border-hover:     rgba(255, 255, 255, 0.15);
+
+  --dg-text-primary:     #f1f5f9;
+  --dg-text-muted:       #64748b;
+
+  --dg-risk-low:         #16a34a;
+  --dg-risk-medium:      #d97706;
+  --dg-risk-high:        #dc2626;
+  --dg-risk-critical:    #9f1239;
+
+  --dg-radius-sm:        8px;
+  --dg-radius-md:        12px;
+  --dg-radius-lg:        16px;
+  --dg-radius-xl:        20px;
+  --dg-radius-2xl:       24px;
+
+  --dg-shadow-card:      0 4px 24px rgba(0, 0, 0, 0.35);
+  --dg-shadow-glow:      0 0 32px var(--dg-primary-glow);
+
+  --dg-ease-out-cubic:   cubic-bezier(0.33, 1, 0.68, 1);
+  --dg-ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dg-duration-fast:    150ms;
+  --dg-duration-base:    250ms;
+
+  --dg-font-heading:     'Syne', system-ui, sans-serif;
+  --dg-font-body:        'DM Sans', system-ui, sans-serif;
+
+  /* ── Base resets scoped to this subtree ─────────────────── */
+  box-sizing: border-box;
+  font-family: var(--dg-font-body);
+  background-color: var(--dg-bg-base);
+  color: var(--dg-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.diaguard *, .diaguard *::before, .diaguard *::after {
+  box-sizing: border-box;
+}
+
+/* ── Typography ─────────────────────────────────────────────── */
+.diaguard h1,
+.diaguard h2,
+.diaguard h3,
+.diaguard h4,
+.diaguard h5,
+.diaguard h6 {
+  font-family: var(--dg-font-heading);
+  color: var(--dg-text-primary);
+  line-height: 1.2;
+}
+
+.diaguard .headline-xl {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.diaguard .gradient-text {
+  background: linear-gradient(135deg, var(--dg-primary) 0%, var(--dg-primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Card System ────────────────────────────────────────────── */
+.diaguard .card-glass {
+  background: var(--dg-bg-card);
+  border: 1px solid var(--dg-border);
+  border-radius: var(--dg-radius-2xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--dg-shadow-card);
+  transition:
+    box-shadow var(--dg-duration-base) var(--dg-ease-out-cubic),
+    border-color var(--dg-duration-base) var(--dg-ease-out-cubic),
+    background var(--dg-duration-base) var(--dg-ease-out-cubic);
+}
+
+.diaguard .card-glass:hover {
+  background: var(--dg-bg-card-hover);
+  border-color: var(--dg-border-hover);
+  box-shadow: var(--dg-shadow-card), 0 0 24px var(--dg-primary-glow-sm);
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.diaguard .btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--dg-primary);
+  color: #fff;
+  font-family: var(--dg-font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform var(--dg-duration-fast) var(--dg-ease-out-cubic),
+    box-shadow var(--dg-duration-fast) var(--dg-ease-out-cubic);
+}
+
+.diaguard .btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.35) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+
+.diaguard .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--dg-primary-glow);
+}
+
+.diaguard .btn-primary:hover::after {
+  transform: translateX(200%);
+  transition: transform 0.55s ease;
+}
+
+.diaguard .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 28px;
+  background: transparent;
+  color: var(--dg-text-primary);
+  font-family: var(--dg-font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: 1px solid var(--dg-border-hover);
+  border-radius: 50px;
+  cursor: pointer;
+  transition:
+    background var(--dg-duration-base) var(--dg-ease-out-cubic),
+    border-color var(--dg-duration-base) var(--dg-ease-out-cubic);
+}
+
+.diaguard .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Utilities ──────────────────────────────────────────────── */
+.diaguard .touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.diaguard .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Scrollbar (scoped) ──────────────────────────────────────── */
+.diaguard::-webkit-scrollbar { width: 6px; }
+.diaguard::-webkit-scrollbar-track { background: var(--dg-bg-base); }
+.diaguard::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+.diaguard::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
