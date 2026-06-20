@@ -655,7 +655,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, healthData, riskS
                <>
                  <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg,#16a34a,#4ade80)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--dg-font-heading)', fontWeight: 800, fontSize: '1.5rem', color: '#fff' }}>{profile?.initials ?? 'U'}</div>
                  <div style={{ textAlign: 'center' }}>
-                   <p style={{ fontFamily: 'var(--dg-font-heading)', fontWeight: 700, fontSize: '1.0625rem', color: 'var(--dg-text-primary)' }}>{profile?.name ?? 'Anonymous User'}</p>
+                   <p style={{ fontFamily: 'var(--dg-font-heading)', fontWeight: 700, fontSize: '1.0625rem', color: 'var(--dg-text-primary)' }}>{profile?.full_name || user?.email?.split('@')[0] || 'Anonymous User'}</p>
                    <p style={{ fontFamily: 'var(--dg-font-body)', fontSize: '0.8125rem', color: 'var(--dg-text-muted)', marginTop: 2 }}>{profile?.email}</p>
                  </div>
                </>

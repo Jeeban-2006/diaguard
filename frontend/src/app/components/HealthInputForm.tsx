@@ -343,7 +343,12 @@ export function HealthInputForm({ onSubmit }: HealthInputFormProps) {
                 <FormField label="Sleep (Hours per night)" icon={Moon} required error={errors.sleepHours?.message} isValid={!errors.sleepHours && !!formValues.sleepHours}>
                   <input
                     type="number" step="0.5"
-                    {...register('sleepHours', { required: 'Required', min: 3, max: 12, valueAsNumber: true })}
+                    {...register('sleepHours', { 
+                      required: 'Required', 
+                      min: { value: 0, message: 'Min 0 hours' }, 
+                      max: { value: 24, message: 'Max 24 hours' }, 
+                      valueAsNumber: true 
+                    })}
                     className="w-full px-5 py-4 bg-[#F8FAFC] border border-[#E5E7EB] rounded-2xl focus:border-[#0B4635] focus:ring-1 focus:ring-[#0B4635] focus:bg-white transition-all outline-none text-[#1A1A1A]"
                     placeholder="e.g., 7.5"
                   />

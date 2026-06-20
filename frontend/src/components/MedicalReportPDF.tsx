@@ -39,7 +39,7 @@ export const MedicalReportPDF = React.forwardRef<HTMLDivElement, MedicalReportPD
              <User size={32} />
            </div>
            <div>
-             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.25rem', marginTop: 0 }}>{profile?.name || 'Anonymous Patient'}</h2>
+             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '0.25rem', marginTop: 0 }}>{profile?.full_name || 'Anonymous Patient'}</h2>
              <p style={{ color: '#6b7280', margin: 0 }}>{profile?.email || 'No email provided'}</p>
            </div>
            <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
