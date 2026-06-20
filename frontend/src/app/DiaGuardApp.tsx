@@ -149,8 +149,8 @@ export const DiaGuardApp: React.FC = () => {
       setRiskScore(score);
       setRiskStage(stage);
       setView('dashboard');
-    } catch (err) {
-      setAnalyzeError('Could not connect to the AI backend. Make sure the Django server is running at http://127.0.0.1:8000');
+    } catch (err: any) {
+      setAnalyzeError(err.message || 'Could not connect to the AI backend. Please check your network connection.');
       console.error('explainRisk error:', err);
     } finally {
       setIsAnalyzing(false);
