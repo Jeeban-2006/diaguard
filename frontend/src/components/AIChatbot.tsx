@@ -53,7 +53,8 @@ export const AIChatbot: React.FC<AIChatbotProps> = ({ healthData, riskScore }) =
       // Extract health profile context separately so the backend can inject it softly into the system prompt
       const contextProfile = `User Health Profile Context: Age ${healthData.age}, BMI ${healthData.bmi}, Fasting Glucose ${healthData.fastingGlucose} mg/dL, Sleep ${healthData.sleepHours} hrs/night, Stress Level ${healthData.stressLevel}/10, Activity ${healthData.physicalActivity}. Current Risk Score: ${Math.round(riskScore)}/100.`;
 
-      const response = await fetch('http://localhost:3000/api/chat', {
+      const nodeApiUrl = import.meta.env.VITE_NODE_URL || 'http://localhost:3000';
+      const response = await fetch(`${nodeApiUrl}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
