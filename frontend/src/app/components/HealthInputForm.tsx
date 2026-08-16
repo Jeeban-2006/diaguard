@@ -94,7 +94,17 @@ export function HealthInputForm({ onSubmit }: HealthInputFormProps) {
                             formValues.sleepHours !== undefined && !Number.isNaN(formValues.sleepHours) && 
                             !!formValues.stressLevel;
 
-  const isFormFullyComplete = isValid;
+  const isFormFullyComplete = 
+    formValues.age !== undefined && !Number.isNaN(formValues.age) &&
+    formValues.gender !== undefined &&
+    formValues.bmi !== undefined && !Number.isNaN(formValues.bmi) &&
+    formValues.fastingGlucose !== undefined && !Number.isNaN(formValues.fastingGlucose) &&
+    formValues.systolicBP !== undefined && !Number.isNaN(formValues.systolicBP) &&
+    formValues.diastolicBP !== undefined && !Number.isNaN(formValues.diastolicBP) &&
+    formValues.physicalActivity !== undefined &&
+    formValues.sleepHours !== undefined && !Number.isNaN(formValues.sleepHours) &&
+    formValues.stressLevel !== undefined &&
+    Object.keys(errors).length === 0;
 
   const onFormSubmit = async (data: HealthFormData) => {
     setIsSubmitting(true);
@@ -293,7 +303,7 @@ export function HealthInputForm({ onSubmit }: HealthInputFormProps) {
                          <label className="text-sm font-semibold text-[#666666] mb-2 block">Systolic (Upper)</label>
                          <input
                            type="number"
-                           {...register('systolicBP', { required: 'Required', min: 80, max: 200, valueAsNumber: true })}
+                           {...register('systolicBP', { required: 'Required', min: { value: 80, message: 'Min 80' }, max: { value: 200, message: 'Max 200' }, valueAsNumber: true })}
                            className="w-full px-5 py-4 bg-white border border-[#E5E7EB] rounded-2xl focus:border-[#0B4635] focus:ring-1 focus:ring-[#0B4635] transition-all outline-none text-[#1A1A1A]"
                            placeholder="120"
                          />
@@ -302,7 +312,7 @@ export function HealthInputForm({ onSubmit }: HealthInputFormProps) {
                          <label className="text-sm font-semibold text-[#666666] mb-2 block">Diastolic (Lower)</label>
                          <input
                            type="number"
-                           {...register('diastolicBP', { required: 'Required', min: 50, max: 120, valueAsNumber: true })}
+                           {...register('diastolicBP', { required: 'Required', min: { value: 50, message: 'Min 50' }, max: { value: 120, message: 'Max 120' }, valueAsNumber: true })}
                            className="w-full px-5 py-4 bg-white border border-[#E5E7EB] rounded-2xl focus:border-[#0B4635] focus:ring-1 focus:ring-[#0B4635] transition-all outline-none text-[#1A1A1A]"
                            placeholder="80"
                          />
