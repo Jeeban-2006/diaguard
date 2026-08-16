@@ -85,11 +85,16 @@ export function HealthInputForm({ onSubmit }: HealthInputFormProps) {
   const filledFields = Object.keys(dirtyFields).length;
   const progress = Math.round((filledFields / totalFields) * 100);
 
-  const personalInfoComplete = formValues.age && formValues.gender;
-  const healthMetricsComplete = formValues.bmi && formValues.fastingGlucose && formValues.systolicBP && formValues.diastolicBP;
-  const lifestyleComplete = formValues.physicalActivity && formValues.sleepHours && formValues.stressLevel;
+  const personalInfoComplete = formValues.age !== undefined && !Number.isNaN(formValues.age) && !!formValues.gender;
+  const healthMetricsComplete = formValues.bmi !== undefined && !Number.isNaN(formValues.bmi) && 
+                                formValues.fastingGlucose !== undefined && !Number.isNaN(formValues.fastingGlucose) && 
+                                formValues.systolicBP !== undefined && !Number.isNaN(formValues.systolicBP) && 
+                                formValues.diastolicBP !== undefined && !Number.isNaN(formValues.diastolicBP);
+  const lifestyleComplete = !!formValues.physicalActivity && 
+                            formValues.sleepHours !== undefined && !Number.isNaN(formValues.sleepHours) && 
+                            !!formValues.stressLevel;
 
-  const isFormFullyComplete = !!personalInfoComplete && !!healthMetricsComplete && !!lifestyleComplete && Object.keys(errors).length === 0;
+  const isFormFullyComplete = isValid;
 
   const onFormSubmit = async (data: HealthFormData) => {
     setIsSubmitting(true);
